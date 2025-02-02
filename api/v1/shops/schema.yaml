@@ -1,0 +1,205 @@
+paths:
+  /api/v1/shops/:
+    put:
+      tags:
+        - shops
+      summary: Update
+      operationId: update_api_v1_shops__put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+        - shops
+      summary: Create
+      operationId: create_api_v1_shops__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/shops/{shop_id}:
+    get:
+      tags:
+        - shops
+      summary: Get
+      operationId: get_api_v1_shops__shop_id__get
+      parameters:
+        - name: shop_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Shop Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/shops/{shop_id}/pets:
+    get:
+      tags:
+        - shops
+      summary: Get Pets
+      operationId: get_pets_api_v1_shops__shop_id__pets_get
+      parameters:
+        - name: shop_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Shop Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+                title: Response Get Pets Api V1 Shops  Shop Id  Pets Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Owner:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+        - id
+        - name
+      title: Owner
+    Pet:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        age:
+          type: integer
+          title: Age
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+        - id
+        - name
+        - age
+        - type
+      title: Pet
+    Shop:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        address:
+          type: string
+          title: Address
+        owner:
+          - $ref: '#/components/schemas/Owner'
+      type: object
+      required:
+        - id
+        - name
+        - address
+        - owner
+      title: Shop
+    ShopPayload:
+      properties:
+        name:
+          type: string
+          title: Name
+        address:
+          type: string
+          title: Address
+      type: object
+      required:
+        - name
+        - address
+      title: ShopPayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError

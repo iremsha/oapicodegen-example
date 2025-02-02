@@ -1,0 +1,303 @@
+openapi: 3.0.0
+info:
+  title: backend-pet
+  description: Something useful
+  version: 0.1.4
+servers:
+- url: /
+paths:
+  /api/v1/pets/:
+    get:
+      tags:
+      - pets
+      summary: Get List
+      operationId: get_list_api_v1_pets__get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get List Api V1 Pets  Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+    put:
+      tags:
+      - pets
+      summary: Update
+      operationId: update_api_v1_pets__put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetPayload'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - pets
+      summary: Create
+      operationId: create_api_v1_pets__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetPayload'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/pets/{pet_id}:
+    get:
+      tags:
+      - pets
+      summary: Get
+      operationId: get_api_v1_pets__pet_id__get
+      parameters:
+      - name: pet_id
+        in: path
+        required: true
+        schema:
+          title: Pet Id
+          type: integer
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/shops/:
+    put:
+      tags:
+      - shops
+      summary: Update
+      operationId: update_api_v1_shops__put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopPayload'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - shops
+      summary: Create
+      operationId: create_api_v1_shops__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShopPayload'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/shops/{shop_id}:
+    get:
+      tags:
+      - shops
+      summary: Get
+      operationId: get_api_v1_shops__shop_id__get
+      parameters:
+      - name: shop_id
+        in: path
+        required: true
+        schema:
+          title: Shop Id
+          type: integer
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shop'
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/shops/{shop_id}/pets:
+    get:
+      tags:
+      - shops
+      summary: Get Pets
+      operationId: get_pets_api_v1_shops__shop_id__pets_get
+      parameters:
+      - name: shop_id
+        in: path
+        required: true
+        schema:
+          title: Shop Id
+          type: integer
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get Pets Api V1 Shops  Shop Id  Pets Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Pet:
+      title: Pet
+      required:
+      - age
+      - id
+      - name
+      - type
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        name:
+          title: Name
+          type: string
+        age:
+          title: Age
+          type: integer
+        type:
+          title: Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    PetPayload:
+      title: PetPayload
+      required:
+      - age
+      - name
+      - type
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        age:
+          title: Age
+          type: integer
+        type:
+          title: Type
+          type: string
+    Shop:
+      title: Shop
+      required:
+      - address
+      - id
+      - name
+      - owner
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        name:
+          title: Name
+          type: string
+        address:
+          title: Address
+          type: string
+    ShopPayload:
+      title: ShopPayload
+      required:
+      - address
+      - name
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        address:
+          title: Address
+          type: string

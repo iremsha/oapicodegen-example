@@ -1,0 +1,5 @@
+CREATE TABLE cards (
+    id SERIAL PRIMARY KEY,
+    bank VARCHAR(255) NOT NULL,
+    holder_name VARCHAR(255) NOT NULL
+);

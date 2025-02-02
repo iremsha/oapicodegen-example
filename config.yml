@@ -1,0 +1,10 @@
+app:
+  env: local
+  port: 9000
+  read_timeout: 5
+  read_buffer_size: 8192
+log:
+  level: INFO
+sentry:
+  dsn: ""
+

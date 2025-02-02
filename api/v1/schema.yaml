@@ -1,0 +1,16 @@
+openapi: 3.0.0
+info:
+  title: backend-pet
+  description: Something useful
+  version: 0.1.4
+paths:
+  /api/v1/pets/:
+    $ref: './pets/schema.yaml#/paths/~1api~1v1~1pets~1'
+  /api/v1/pets/{pet_id}:
+    $ref: './pets/schema.yaml#/paths/~1api~1v1~1pets~1{pet_id}'
+  /api/v1/shops/:
+    $ref: './shops/schema.yaml#/paths/~1api~1v1~1shops~1'
+  /api/v1/shops/{shop_id}:
+    $ref: './shops/schema.yaml#/paths/~1api~1v1~1shops~1{shop_id}'
+  /api/v1/shops/{shop_id}/pets:
+    $ref: './shops/schema.yaml#/paths/~1api~1v1~1shops~1{shop_id}~1pets'
