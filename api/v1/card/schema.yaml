@@ -1,0 +1,121 @@
+paths:
+  /api/v1/cards/:
+    get:
+      tags:
+        - cards
+      summary: Get list
+      operationId: get_api_v1_cards
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CardResponse'
+                type: array
+                title: Response Get list cards
+    post:
+      tags:
+        - cards
+      summary: Create
+      operationId: create_api_v1_card
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+  /api/v1/cards/{card_id}:
+    get:
+      tags:
+        - cards
+      summary: Get
+      operationId: get_api_v1_card
+      parameters:
+        - name: card_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: card Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+    put:
+      tags:
+        - cards
+      summary: Update
+      operationId: update_api_v1_card
+      parameters:
+        - name: card_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: card Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+
+components:
+  schemas:
+    CardResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        cvv:
+          type: integer
+          title: CVV
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+        - id
+        - name
+        - age
+        - type
+      title: CardResponse
+    CardRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        cvv:
+          type: integer
+          title: CVV
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+        - name
+        - cvv
+        - type
+      title: CardRequest

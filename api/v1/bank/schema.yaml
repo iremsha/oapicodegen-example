@@ -1,0 +1,169 @@
+paths:
+  /api/v1/banks/:
+    post:
+      tags:
+        - banks
+      summary: Create
+      operationId: create_api_v1_bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+    get:
+      tags:
+        - banks
+      summary: Get list
+      operationId: get_api_v1_banks
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BankResponse'
+                type: array
+                title: Response Get list banks
+  /api/v1/banks/{bank_id}:
+    get:
+      tags:
+        - banks
+      summary: Get
+      operationId: get_api_v1_bank
+      parameters:
+        - name: bank_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: bank Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+    put:
+      tags:
+        - banks
+      summary: Update
+      operationId: update_api_v1_bank
+      parameters:
+        - name: bank_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: bank Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+  /api/v1/banks/{bank_id}/cards:
+    get:
+      tags:
+        - banks
+      summary: Get list
+      operationId: get_api_v1_bank_cards
+      parameters:
+        - name: bank_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: bank Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BanksCardResponse'
+                title: Response Get list bank cards
+
+components:
+  schemas:
+    Owner:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+        - id
+        - name
+      title: Owner
+    BankResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        address:
+          type: string
+          title: Address
+        owner:
+          $ref: '#/components/schemas/Owner'
+      type: object
+      required:
+        - id
+        - name
+        - address
+        - owner
+      title: BankResponse
+    BankRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        address:
+          type: string
+          title: Address
+      type: object
+      required:
+        - name
+        - address
+      title: BankRequest
+    BanksCardResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        cvv:
+          type: integer
+          title: CVV
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+        - name
+        - cvv
+        - type
+      title: CardRequest

@@ -1,0 +1,292 @@
+openapi: 3.0.0
+info:
+  title: Examle use oapicodegen
+  description: Something useful
+  version: 0.1.0
+servers:
+- url: /
+paths:
+  /api/v1/banks/:
+    get:
+      tags:
+      - banks
+      summary: Get list
+      operationId: get_api_v1_banks
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get list banks
+                type: array
+                items:
+                  $ref: '#/components/schemas/BankResponse'
+    post:
+      tags:
+      - banks
+      summary: Create
+      operationId: create_api_v1_bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankRequest'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+  /api/v1/banks/{bank_id}:
+    get:
+      tags:
+      - banks
+      summary: Get
+      operationId: get_api_v1_bank
+      parameters:
+      - name: bank_id
+        in: path
+        required: true
+        schema:
+          title: bank Id
+          type: integer
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+    put:
+      tags:
+      - banks
+      summary: Update
+      operationId: update_api_v1_bank
+      parameters:
+      - name: bank_id
+        in: path
+        required: true
+        schema:
+          title: bank Id
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankRequest'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+  /api/v1/banks/{bank_id}/cards:
+    get:
+      tags:
+      - banks
+      summary: Get list
+      operationId: get_api_v1_bank_cards
+      parameters:
+      - name: bank_id
+        in: path
+        required: true
+        schema:
+          title: bank Id
+          type: integer
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get list bank cards
+                type: array
+                items:
+                  $ref: '#/components/schemas/BanksCardResponse'
+  /api/v1/cards/:
+    get:
+      tags:
+      - cards
+      summary: Get list
+      operationId: get_api_v1_cards
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get list cards
+                type: array
+                items:
+                  $ref: '#/components/schemas/CardResponse'
+    post:
+      tags:
+      - cards
+      summary: Create
+      operationId: create_api_v1_card
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardRequest'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+  /api/v1/cards/{card_id}:
+    get:
+      tags:
+      - cards
+      summary: Get
+      operationId: get_api_v1_card
+      parameters:
+      - name: card_id
+        in: path
+        required: true
+        schema:
+          title: card Id
+          type: integer
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+    put:
+      tags:
+      - cards
+      summary: Update
+      operationId: update_api_v1_card
+      parameters:
+      - name: card_id
+        in: path
+        required: true
+        schema:
+          title: card Id
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardRequest'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+components:
+  schemas:
+    BankResponse:
+      title: BankResponse
+      required:
+      - address
+      - id
+      - name
+      - owner
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        name:
+          title: Name
+          type: string
+        address:
+          title: Address
+          type: string
+        owner:
+          $ref: '#/components/schemas/Owner'
+    Owner:
+      title: Owner
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        name:
+          title: Name
+          type: string
+    BankRequest:
+      title: BankRequest
+      required:
+      - address
+      - name
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        address:
+          title: Address
+          type: string
+    BanksCardResponse:
+      title: CardRequest
+      required:
+      - cvv
+      - name
+      - type
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        cvv:
+          title: CVV
+          type: integer
+        type:
+          title: Type
+          type: string
+    CardResponse:
+      title: CardResponse
+      required:
+      - age
+      - id
+      - name
+      - type
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        name:
+          title: Name
+          type: string
+        cvv:
+          title: CVV
+          type: integer
+        type:
+          title: Type
+          type: string
+    CardRequest:
+      title: CardRequest
+      required:
+      - cvv
+      - name
+      - type
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        cvv:
+          title: CVV
+          type: integer
+        type:
+          title: Type
+          type: string

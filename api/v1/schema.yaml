@@ -1,0 +1,16 @@
+openapi: 3.0.0
+info:
+  title: Examle use oapicodegen
+  description: Something useful
+  version: 0.1.0
+paths:
+  /api/v1/banks/:
+    $ref: './bank/schema.yaml#/paths/~1api~1v1~1banks~1'
+  /api/v1/banks/{bank_id}:
+    $ref: './bank/schema.yaml#/paths/~1api~1v1~1banks~1{bank_id}'
+  /api/v1/banks/{bank_id}/cards:
+    $ref: './bank/schema.yaml#/paths/~1api~1v1~1banks~1{bank_id}~1cards'
+  /api/v1/cards/:
+    $ref: './card/schema.yaml#/paths/~1api~1v1~1cards~1'
+  /api/v1/cards/{card_id}:
+    $ref: './card/schema.yaml#/paths/~1api~1v1~1cards~1{card_id}'
